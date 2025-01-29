@@ -4,6 +4,7 @@ import decodeVerifiedToken from './playWithToken.js';
 import receiverUniqueID from "./receiverUniqueID.js"
 import generateOTP from "./generateOTP.js"
 import sendEmail from "./retriveEmail.js"
+import wait from "./delay.js"
 
 export {
     generateTrackingId,
@@ -11,5 +12,6 @@ export {
     decodeVerifiedToken,
     receiverUniqueID,
     generateOTP,
-    sendEmail
+    sendEmail,
+    wait
 };

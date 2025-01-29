@@ -1,37 +1,43 @@
 import Response from '../../../class/response.js';
 import updateData from '../services/update.js';
-import { decodeVerifiedToken } from '../../../utils/index.js';
-import Model from '../models/index.js';
+import { wait, decodeVerifiedToken } from '../../../utils/index.js';
 
 const updateController = async (req, res) => {
-    const token = req.headers.authorization.split(' ')[1];
+    await wait(3000); 
+    const response = new Response(res);
+    const token = req.headers.authorization.split(' ')[1]; // need to remove after function modify
     let { _id } = decodeVerifiedToken(token)
 
-    const response = new Response(res);
-
-    if (req.body.email || req.body.password || req.body._id) {
-        const invalidKeys = Object.keys(req.body).filter(key => ['email', 'password', '_id'].includes(key));
-        return response.error({}, `You cannot update the following fields: ${invalidKeys.join(', ')}`);
+    if (!_id) {
+        return response.error("the token is invalid");
     }
 
+    let credential = {};
+    if (req.body.email) {
+        credential.email = req.body.email;
+    }
 
-    if (!req.body || Object.keys(req.body).length === 0) {
-        return response.error([], "Please provide data to update.");
+    if (req.body.name) {
+        credential.name = req.body.name;
+    }
+
+    if (req.body.country) {
+        credential.country = req.body.country;
     }
 
     try {
+        
+        const responseUpdatedCredential = await updateData(_id, credential);
+        const data = responseUpdatedCredential.toObject();
 
-        const updatedUser = await Model.findOne({ _id });
-        if (!updatedUser) {
-            return response.error("User not found");
-        }
+        let credentialInfo = {
+            _id: data._id,
+            name: data.name,
+            email: data.email,
+            country: data.country,
+        };
 
-        const data = await updateData(_id, req.body);
-
-        delete data._doc.password;
-        delete data._doc.__v;
-
-        return response.success(data, 'Data Updated successfully');
+        return response.success(credentialInfo, 'Credential Updated successfully');
     } catch (error) {
 
         let messages = [];
@@ -43,7 +49,7 @@ const updateController = async (req, res) => {
             messages.push(error.message);
         }
 
-        response.error(messages, "Failed to fetch data");
+        response.error(messages, "Internal Server Error", 500);
     }
 }
 
