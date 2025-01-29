@@ -1,37 +1,47 @@
 import Response from '../../../class/response.js';
 import login from '../services/get.js';
 import generateToken from '../../../utils/generateToken.js';
-import Model from '../models/index.js';
+import { wait } from '../../../utils/index.js';
 
 const loginController = async (req, res) => {
+    await wait(3000);
     const response = new Response(res);
 
-    let user_login = {};
-    user_login.email = req.body.email;
-    user_login.password = req.body.password;
+    let userLogin = {};
+    userLogin.email = req.body.email;
+    userLogin.password = req.body.password;
+
+    let messages = [];
+    userLogin.email ? null : messages.push("email is required");
+    userLogin.password ? null : messages.push("password is required");
+
+    if (messages.length > 0) {
+        return response.error(messages, "validation failed");
+    }
 
     try {
-
-        const findUser = await Model.findOne({ email: user_login.email });
-        if (!findUser) {
-            return response.error("User not found");
+        const responseCredential = await login(userLogin);
+        if (!responseCredential) {
+            return response.error("this email is not registered");
         }
 
-        const isMatch = await findUser.isPasswordValid(user_login.password);
-        if (!isMatch) {
-            return response.error("Password is incorrect");
+        const isPasswordMatch = await responseCredential.isPasswordValid(userLogin.password);
+        if (!isPasswordMatch) {
+            return response.error("the passowrd is incorrect");
         }
 
-        const data = await login(user_login);
+        let credential = responseCredential.toObject();
+        const token = generateToken(credential);
 
-        const token = generateToken(data);
+        let credentialInfo = {
+            _id: credential._id,
+            name: credential.name,
+            email: credential.email,
+            country: credential.country,
+            token: token,
+        };
 
-        delete data._doc.password;
-        delete data._doc.__v;
-
-        data._doc.token = token
-
-        return response.success(data, 'Login successfully');
+        return response.success(credentialInfo, 'login successfully');
     } catch (error) {
 
         let messages = [];
@@ -43,7 +53,7 @@ const loginController = async (req, res) => {
             messages.push(error.message);
         }
 
-        response.error(messages, "Failed to fetch data");
+        response.error(messages, "Internal Server Error", 500);
     }
 }
 

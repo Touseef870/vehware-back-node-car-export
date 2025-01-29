@@ -1,23 +1,28 @@
 import Response from '../../../class/response.js';
 import { getById } from "../db/index.js";
+import { wait } from '../../../utils/index.js';
 
 const getByIdController = async (req, res) => {
+    await wait(3000);
     const response = new Response(res);
-
     const { id } = req.params;
 
     try {
 
-
-        const data = await getById(id);
-        if (!data) {
-            return response.error("User not found");
+        const credentialResponse = await getById(id);
+        if (!credentialResponse) {
+            return response.error("id doesn't match any data");
         }
 
-        delete data._doc.password;
-        delete data._doc.__v;
+        const credential = credentialResponse.toObject();
+        const credentialInfo = {
+            _id: credential._id,
+            name: credential.name,
+            email: credential.email,
+            country: credential.country
+        };
 
-        return response.success(data);
+        return response.success(credentialInfo, "data fetched successfully");
     } catch (error) {
 
         let messages = [];
@@ -29,7 +34,7 @@ const getByIdController = async (req, res) => {
             messages.push(error.message);
         }
 
-        response.error(messages, "Failed to fetch data");
+        response.error(messages, "Internal Server Error", 500);
     }
 }
 

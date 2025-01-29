@@ -1,28 +1,32 @@
 import Response from '../../../class/response.js';
 import postData from '../services/post.js';
 import generateToken from '../../../utils/generateToken.js';
-
+import { wait } from '../../../utils/index.js';
 
 const postController = async (req, res) => {
+    await wait(3000);
     const response = new Response(res);
 
-    let user_create = {};
-    user_create.name = req.body.name;
-    user_create.email = req.body.email;
-    user_create.password = req.body.password;
-    user_create.country = req.body.country;
+    let userInfo = {};
+    userInfo.name = req.body.name;
+    userInfo.email = req.body.email;
+    userInfo.password = req.body.password;
+    userInfo.country = req.body.country;
 
     try {
 
-        const data = await postData(user_create);
-        const token = generateToken(data);
+        const credential = await postData(userInfo);
+        const token = generateToken(credential);
 
-        delete data.password;
-        delete data.__v;
+        let credentialInfo = {
+            _id: credential._id,
+            name: credential.name,
+            email: credential.email,
+            country: credential.country,
+            token: token,
+        };
 
-        data.token = token
-
-        return response.success(data, 'Data Added successfully');
+        return response.success(credentialInfo, 'Data Added successfully');
     } catch (error) {
 
         if (error.code == 11000) {
@@ -43,7 +47,7 @@ const postController = async (req, res) => {
             messages.push(error.message);
         }
 
-        response.error(messages, "Failed to fetch data");
+        response.error(messages, "Internal Server Error", 500);
     }
 
 }

@@ -12,7 +12,6 @@ router.post("/signup", postController)
 router.post("/login", loginController)
 router.patch("/update", verifyToken, updateController)
 router.delete("/delete", verifyToken, deleteController)
-
 router.get("/get/:id", getByIdController)
 
 export default router;
