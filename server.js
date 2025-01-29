@@ -6,6 +6,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import routes from "./routes/index.js";
 import Response from "./class/response.js";
+import { cloudinaryConfig } from './Upload Cloudinary/index.js'
 
 const corsOptions = {
   origin: "*",
@@ -33,6 +34,8 @@ app.use(express.json());
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.set("port", process.env.PORT || 4000);
+
+cloudinaryConfig();
 
 
 // ========================================================
@@ -71,14 +74,14 @@ db.on("disconnected", () => {
 // ========================================================
 app.get("/", (req, res) => {
   const response = new Response(res);
-  return response.success({ }, 'Api is running successfully by Touseef Abid || Sharjeel Hussain 😁');
+  return response.success({}, 'Api is running successfully by Touseef Abid || Sharjeel Hussain 😁');
 });
 
 app.use("/api", routes);
 
 app.all("*", (req, res) => {
   const response = new Response(res);
-  return response.error({ }, 'Trying route undefined ⚠️');
+  return response.error({}, 'Trying route undefined ⚠️');
 });
 
 
