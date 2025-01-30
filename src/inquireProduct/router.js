@@ -5,8 +5,8 @@ import deleteController from "./controllers/delete.js";
 import updateController from "./controllers/update.js";
 const router = Router();
 
-router.get("/get", getController)
-// router.post("/adduser", postController)
+// router.get("/get", getController)
+router.post("/", postController)
 // router.delete("/:id", deleteController)
 // router.put("/:id", updateController)
 

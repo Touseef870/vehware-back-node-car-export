@@ -1,14 +1,7 @@
-import generateReceiverEmail from './receiverTemplate.js';
-import generateSenderEmail from './senderTemplate.js';
-import generateOTPTemplate from "./generateOTPTemplate.js"
-import generateReceiverTemplate from "./generateReceiverNotification.js"
-import generateSenderNotification from "./generateSenderNotification.js"
-
+import inquiryAgentTemp from "./inquiryAgentTemp.js"
+import inquirySellerTemp from "./inquirySellerTemp.js"
 
 export {
-    generateReceiverEmail,
-    generateSenderEmail,
-    generateOTPTemplate,
-    generateReceiverTemplate,
-    generateSenderNotification,
+    inquiryAgentTemp,
+    inquirySellerTemp,
 }
