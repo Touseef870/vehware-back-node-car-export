@@ -7,9 +7,9 @@ import getByIdService from "../services/getById.js"
 
 export default async function postController(req, res) {
     const response = new Response(res);
-
-    const token = req.headers.authorization.split(' ')[1];
-    let { _id } = decodeVerifiedToken(token)
+    await wait(3000);
+    
+    let { _id } = decodeVerifiedToken(req.headers.authorization)
 
     const { productId, reviewMessage, rating } = req.body;
 

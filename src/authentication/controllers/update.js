@@ -5,8 +5,8 @@ import { wait, decodeVerifiedToken } from '../../../utils/index.js';
 const updateController = async (req, res) => {
     await wait(3000); 
     const response = new Response(res);
-    const token = req.headers.authorization.split(' ')[1]; // need to remove after function modify
-    let { _id } = decodeVerifiedToken(token)
+    
+    let { _id } = decodeVerifiedToken(req.headers.authorization)
 
     if (!_id) {
         return response.error("the token is invalid");

@@ -1,18 +1,17 @@
 import Response from '../../../class/response.js';
 import deleteData from '../services/delete.js';
-import deCodeVerifiedToken from '../../../utils/playWithToken.js';
-import { wait } from '../../../utils/index.js';
+import { wait, decodeVerifiedToken } from '../../../utils/index.js';
 
 const deleteController = async (req, res) => {
     await wait(3000);
-    const token = req.headers.authorization.split(' ')[1]; // need to remove after function modify
-    let { _id } = deCodeVerifiedToken(token)
+    const response = new Response(res);
+
+    let { _id } = decodeVerifiedToken(req.headers.authorization)
 
     if (!_id) {
         return response.error("the token is invalid");
     }
 
-    const response = new Response(res);
 
     try {
         const deletedCredential = await deleteData(_id);
@@ -32,7 +31,6 @@ const deleteController = async (req, res) => {
         } else {
             messages.push(error.message);
         }
-
         response.error(messages, "Internal Server Error", 500);
     }
 }
