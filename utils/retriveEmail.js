@@ -24,7 +24,7 @@ async function sendEmail(prop = { data, customerEmail, template }) {
 
     const mailOptions = {
         to: customerEmail,
-        subject: 'Payment Invoice',
+        subject: 'Global Trading Cars',
         html: template(data)
     };
 
