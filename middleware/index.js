@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import Response from "./../class/response.js";
+import Response from "../class/response.js";
 import multer from "multer";
 
 
@@ -34,37 +34,45 @@ export async function verifyToken(req, res, next) {
 }
 
 
+const storage = multer.memoryStorage();
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 10 * 1024 * 1024 },
+}).array("images", 6);
 
 
 export function uploadMiddleware(req, res, next) {
     const response = new Response(res);
 
-    const storage = multer.memoryStorage();
-    const upload = multer({
-        storage: storage,
-        limits: { fileSize: 10 * 1024 * 1024 }
-    }).array('images', 6);
-
     upload(req, res, (err) => {
-
-        if (err.code === 'LIMIT_UNEXPECTED_FILE') {
-            return response.error({}, 'Maximum of 6 images allowed.');
-        }
-
-        if (err.code === 'LIMIT_FILE_SIZE') {
-            return response.error({}, 'Maximum file size is 10MB');
-        }
-
         if (err) {
-            return response.error({}, 'Error uploading image');
+            if (err instanceof multer.MulterError) {
+                switch (err.code) {
+                    case 'LIMIT_FILE_SIZE':
+                        return response.error({}, 'Maximum file size is 10MB');
+                    case 'LIMIT_FILE_COUNT':
+                        return response.error({}, 'Maximum of 6 images allowed');
+                    case 'LIMIT_UNEXPECTED_FILE':
+                        return response.error({}, "Field name must be 'images'");
+                    case 'INVALID_FILE_TYPE':
+                        return response.error({}, 'Only image files are allowed');
+                    default:
+                        return response.error({}, `File upload error: ${err.message}`);
+                }
+            }
+            return response.error({}, 'Error uploading files');
         }
 
         if (!req.files || req.files.length === 0) {
-            return response.error({}, 'At least one image is required.');
+            return response.error({}, 'At least one image is required');
         }
 
-        if (req.files.length > 6) {
-            return response.error({}, 'Maximum of 6 images allowed.');
+        const invalidFiles = req.files.filter(file =>
+            !file.mimetype.startsWith('image/')
+        );
+
+        if (invalidFiles.length > 0) {
+            return response.error({}, 'Invalid file type detected');
         }
 
         next();
