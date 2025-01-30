@@ -38,7 +38,7 @@ export default async function getByIdController(req, res) {
             vehicleWeight: product.vehicleWeight,
             grossVehicleWeight: product.grossVehicleWeight,
             maxLoadingCapacity: product.maxLoadingCapacity,
-            image: product.image,
+            image: product.images,
             publishAt: product.createdAt,
             ratings: product.ratings,
             numOfReviews: product.numOfReviews,

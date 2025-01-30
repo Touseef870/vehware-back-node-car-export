@@ -49,9 +49,10 @@ const postController = async (req, res) => {
             url: img.secure_url,
             public_id: img.public_id
         }));
-        console.log(addProduct, "uploadedImages")
 
         const newProduct = await postData(addProduct);
+
+        console.log(newProduct, "ho gya add")
 
         return response.success(newProduct, 'Data added successfully');
     } catch (error) {
