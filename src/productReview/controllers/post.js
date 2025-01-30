@@ -2,13 +2,13 @@ import postData from "../services/post.js"
 import Response from '../../../class/response.js';
 import { wait, decodeVerifiedToken } from '../../../utils/index.js';
 import { getById } from '../../authentication/db/index.js';
-import getDataById from "../../addProducts/services/getById.js"
+import getDataById from "../../product/services/getById.js"
 import getByIdService from "../services/getById.js"
 
 export default async function postController(req, res) {
     const response = new Response(res);
     await wait(3000);
-    
+
     let { _id } = decodeVerifiedToken(req.headers.authorization)
 
     const { productId, reviewMessage, rating } = req.body;
