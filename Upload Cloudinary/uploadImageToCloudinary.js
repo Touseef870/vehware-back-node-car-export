@@ -1,7 +1,7 @@
 import cloudinary from 'cloudinary';
 
 const uploadImageToCloudinary = async (imageBuffer) => {
-    return promises.all(
+    return Promise.all(
         imageBuffer.map(async (image) => {
             return new Promise((resolve, reject) => {
                 const uploadStream = cloudinary.v2.uploader.upload_stream(
