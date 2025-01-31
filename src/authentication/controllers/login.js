@@ -8,8 +8,8 @@ const loginController = async (req, res) => {
     const response = new Response(res);
 
     let userLogin = {};
-    userLogin.email = req.body.email;
-    userLogin.password = req.body.password;
+    userLogin.email     = req.body.email;
+    userLogin.password  = req.body.password;
 
     let messages = [];
     userLogin.email ? null : messages.push("email is required");
@@ -34,11 +34,11 @@ const loginController = async (req, res) => {
         const token = generateToken(credential);
 
         let credentialInfo = {
-            _id: credential._id,
-            name: credential.name,
-            email: credential.email,
-            country: credential.country,
-            token: token,
+            _id         : credential._id,
+            name        : credential.name,
+            email       : credential.email,
+            country     : credential.country,
+            token       : token,
         };
 
         return response.success(credentialInfo, 'login successfully');

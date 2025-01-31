@@ -8,10 +8,10 @@ const postController = async (req, res) => {
     const response = new Response(res);
 
     let userInfo = {};
-    userInfo.name = req.body.name;
-    userInfo.email = req.body.email;
-    userInfo.password = req.body.password;
-    userInfo.country = req.body.country;
+    userInfo.name       = req.body.name;
+    userInfo.email      = req.body.email;
+    userInfo.password   = req.body.password;
+    userInfo.country    = req.body.country;
 
     try {
 
@@ -19,11 +19,11 @@ const postController = async (req, res) => {
         const token = generateToken(credential);
 
         let credentialInfo = {
-            _id: credential._id,
-            name: credential.name,
-            email: credential.email,
-            country: credential.country,
-            token: token,
+            _id         : credential._id,
+            name        : credential.name,
+            email       : credential.email,
+            country     : credential.country,
+            token       : token,
         };
 
         return response.success(credentialInfo, 'Data Added successfully');

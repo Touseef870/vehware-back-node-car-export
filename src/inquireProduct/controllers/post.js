@@ -13,12 +13,14 @@ const postController = async (req, res) => {
 
         const isValidProductId = isValidMongooseId(productId)
         if (!isValidProductId) {
-            return response.error({}, 'Invalid Product ID');
+            return response.error(null, 'Invalid Product ID');
         }
 
-        const findProduct = await getDataById(productId);
+        const responseProduct = await getDataById(productId);
+        const findProduct = responseProduct.toObject();
+        
         if (!findProduct) {
-            return response.error({}, 'Product not found');
+            return response.error(null, 'Product not found');
         }
 
         const inquiryProduct = {
@@ -33,7 +35,7 @@ const postController = async (req, res) => {
         const data = await postData(inquiryProduct);
 
         const inquiryDetails = {
-            productData: findProduct._doc,
+            productData: findProduct,
             inquireData: data
         }
 
@@ -42,27 +44,25 @@ const postController = async (req, res) => {
                 console.log("Email sent successfully");
             })
             .catch((error) => {
-                console.error("Error sending agent email:", error.message);
-                response.error({}, 'Failed to send sender email');
+                response.error(null, 'Failed to send sender email');
             });
 
-        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: findProduct._doc.sellerEmail, template: inquirySellerTemp })
+        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: findProduct.sellerEmail, template: inquirySellerTemp })
             .then(() => {
                 console.log("Email sent successfully");
             })
             .catch((error) => {
-                console.error("Error sending seller email:", error.message);
-                response.error({}, 'Failed to send sender email');
+                response.error(null, 'Failed to send sender email');
             });
 
 
         if (!data) {
-            return response.error({}, 'sorry data not saved');
+            return response.error(null, 'Unfortunatly, Inquiry not sent');
         }
 
 
 
-        return response.success({ key: 'value' }, 'Data fetched successfully');
+        return response.success(null, 'Data fetched successfully');
     } catch (error) {
         let messages = [];
         if (error.errors) {

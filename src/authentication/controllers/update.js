@@ -31,10 +31,10 @@ const updateController = async (req, res) => {
         const data = responseUpdatedCredential.toObject();
 
         let credentialInfo = {
-            _id: data._id,
-            name: data.name,
-            email: data.email,
-            country: data.country,
+            _id     : data._id,
+            name    : data.name,
+            email   : data.email,
+            country : data.country,
         };
 
         return response.success(credentialInfo, 'Credential Updated successfully');
