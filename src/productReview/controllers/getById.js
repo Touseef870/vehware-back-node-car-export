@@ -16,16 +16,16 @@ export default async function getByIdController(req, res) {
         const resProductReview = await getDataById(id);
 
         const productReview = {
-            _id: resProductReview._id,
-            productId: resProductReview.productId,
-            totalReviews: resProductReview.reviews.length,
-            reviews: resProductReview.reviews.map((review) => {
+            _id             : resProductReview._id,
+            productId       : resProductReview.productId,
+            totalReviews    : resProductReview.reviews.length,
+            reviews         : resProductReview.reviews.map((review) => {
                 return {
-                    _id: review._id,
-                    review: review.reviewMessage,
-                    rating: review.rating,
-                    userId: review.userId,
-                    createdAt: review.createdAt
+                    _id         : review._id,
+                    review      : review.reviewMessage,
+                    rating      : review.rating,
+                    userId      : review.userId,
+                    createdAt   : review.createdAt
                 }
             }),
         }

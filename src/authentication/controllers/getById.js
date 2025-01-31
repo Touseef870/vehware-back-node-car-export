@@ -16,10 +16,10 @@ const getByIdController = async (req, res) => {
 
         const credential = credentialResponse.toObject();
         const credentialInfo = {
-            _id: credential._id,
-            name: credential.name,
-            email: credential.email,
-            country: credential.country
+            _id     : credential._id,
+            name    : credential.name,
+            email   : credential.email,
+            country : credential.country
         };
 
         return response.success(credentialInfo, "data fetched successfully");
