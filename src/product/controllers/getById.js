@@ -14,37 +14,40 @@ export default async function getByIdController(req, res) {
 
     try {
         const product = await getDataById(id);
-
-        const getProduct = {
-            _id: product._id,
-            name: product.name,
-            price: product.price,
-            inventoryLocation: product.inventoryLocation,
-            modelCode: product.modelCode,
-            year: product.year,
-            transmission: product.transmission,
-            color: product.color,
-            drive: product.drive,
-            doors: product.doors,
-            steering: product.steering,
-            seats: product.seats,
-            engineType: product.engineType,
-            bodyType: product.bodyType,
-            engineSize: product.engineSize,
-            mileage: product.mileage,
-            fuelType: product.fuelType,
-            dimensions: product.dimensions,
-            m3: product.m3,
-            vehicleWeight: product.vehicleWeight,
-            grossVehicleWeight: product.grossVehicleWeight,
-            maxLoadingCapacity: product.maxLoadingCapacity,
-            image: product.images,
-            publishAt: product.createdAt,
-            ratings: product.ratings,
-            numOfReviews: product.numOfReviews,
+        if (!product) {
+            return response.error([], "Data not found");
+        }
+        
+        const dataModified = {
+            _id                 : product._id,
+            name                : product.name,
+            price               : product.price,
+            inventoryLocation   : product.inventoryLocation,
+            modelCode           : product.modelCode,
+            year                : product.year,
+            transmission        : product.transmission,
+            color               : product.color,
+            drive               : product.drive,
+            doors               : product.doors,
+            steering            : product.steering,
+            seats               : product.seats,
+            engineType          : product.engineType,
+            bodyType            : product.bodyType,
+            engineSize          : product.engineSize,
+            mileage             : product.mileage,
+            fuelType            : product.fuelType,
+            dimensions          : product.dimensions,
+            m3                  : product.m3,
+            vehicleWeight       : product.vehicleWeight,
+            grossVehicleWeight  : product.grossVehicleWeight,
+            maxLoadingCapacity  : product.maxLoadingCapacity,
+            image               : product.images,
+            publishAt           : product.createdAt,
+            ratings             : product.ratings,
+            numOfReviews        : product.numOfReviews,
         }
 
-        response.success(getProduct, 'Data fetched successfully');
+        response.success(dataModified);
     } catch (error) {
 
         let messages = [];
