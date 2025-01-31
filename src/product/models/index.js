@@ -6,19 +6,19 @@ const CarSchema = new Schema({
         required: true,
         trim: true
     },
-    sellerEmail: {
-        type: String,
-        required: [true, 'Email is required'],
-        trim: true,
-        match: [
-            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            'Please enter a valid email address'
-        ]
-    },
-    sellerId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Pleaes provide seller id"]
-    },
+    // sellerEmail: {
+    //     type: String,
+    //     required: [true, 'Email is required'],
+    //     trim: true,
+    //     match: [
+    //         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    //         'Please enter a valid email address'
+    //     ]
+    // },
+    // sellerId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: [true, "Pleaes provide seller id"]
+    // },
     // price: {
     //     type: Number,
     //     required: true,
