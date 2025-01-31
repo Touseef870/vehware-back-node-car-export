@@ -17,7 +17,7 @@ const deleteController = async (req, res) => {
         const deletedCredential = await deleteData(_id);
 
         if (!deletedCredential) {
-            return response.error("id doesn't match any data");
+            return response.error("Data not found by provided id");
         }
 
         return response.success({ id: _id }, 'Data Deleted successfully');

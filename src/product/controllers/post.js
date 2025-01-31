@@ -52,14 +52,12 @@ const postController = async (req, res) => {
 
         const newProduct = await postData(addProduct);
 
-        console.log(newProduct, "ho gya add")
-
         return response.success(newProduct, 'Data added successfully');
     } catch (error) {
 
         if (uploadedImages?.length > 0) {
             const publicIds = uploadedImages.map(img => img.public_id);
-            await deleteCloudinaryImages(publicIds).then(() => console.log("ho gya delete")).catch(error => {
+            await deleteCloudinaryImages(publicIds).then(() => console.log("success deleted")).catch(error => {
                 console.error('Cloudinary cleanup failed:', error);
             });
         }
