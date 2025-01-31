@@ -4,9 +4,9 @@ const deleteController = async (req, res) => {
     const response = new Response(res); 
 
     try {
-        return response.success({ key: 'value' }, 'Data fetched successfully');
+        return response.success(null, 'Deleted Successfully');
     } catch (err) {
-        response.error({}, 'Failed to fetch data');
+        response.error({}, 'Internal Server Error', 500);
     }
 }
 
