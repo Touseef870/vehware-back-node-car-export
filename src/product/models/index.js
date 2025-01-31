@@ -19,11 +19,11 @@ const CarSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: [true, "Pleaes provide seller id"]
     },
-    price: {
-        type: Number,
-        required: true,
-        min: 0
-    },
+    // price: {
+    //     type: Number,
+    //     required: true,
+    //     min: 0
+    // },
     inventoryLocation: {
         type: String,
         required: true,
@@ -37,7 +37,7 @@ const CarSchema = new Schema({
     year: {
         type: String,
         required: true,
-        match: [/^\d{4}\/\d{2}$/, "Year format should be YYYY/MM"]
+        match: [/^\d{4}/, "Year format should be YYYY"]
     },
     transmission: {
         type: String,
