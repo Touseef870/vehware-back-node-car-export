@@ -12,39 +12,36 @@ const postController = async (req, res) => {
         return response.error("the token is invalid");
     }
 
-    const { name, price, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, dimensions, m3, vehicleWeight, grossVehicleWeight, maxLoadingCapacity } = req.body;
+    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, dimensions, m3, vehicleWeight, grossVehicleWeight, maxLoadingCapacity } = req.body;
 
     const addProduct = {
-        name                : name,
-        price               : price,
-        inventoryLocation   : inventoryLocation,
-        modelCode           : modelCode,
-        year                : year,
-        transmission        : transmission,
-        color               : color,
-        drive               : drive,
-        doors               : doors,
-        steering            : steering,
-        seats               : seats,
-        engineType          : engineType,
-        bodyType            : bodyType,
-        engineSize          : engineSize,
-        mileage             : mileage,
-        fuelType            : fuelType,
-        dimensions          : dimensions,
-        m3                  : m3,
-        vehicleWeight       : vehicleWeight,
-        grossVehicleWeight  : grossVehicleWeight,
-        maxLoadingCapacity  : maxLoadingCapacity,
-        sellerEmail         : email,
-        sellerId            : _id,
+        name: name,
+        inventoryLocation: inventoryLocation,
+        modelCode: modelCode,
+        year: year,
+        transmission: transmission,
+        color: color,
+        drive: drive,
+        doors: doors,
+        steering: steering,
+        seats: seats,
+        engineType: engineType,
+        bodyType: bodyType,
+        engineSize: engineSize,
+        mileage: mileage,
+        fuelType: fuelType,
+        dimensions: dimensions,
+        m3: m3,
+        vehicleWeight: vehicleWeight,
+        grossVehicleWeight: grossVehicleWeight,
+        maxLoadingCapacity: maxLoadingCapacity,
     }
 
     let uploadedImages = [];
 
     try {
 
-        uploadedImages = await uploadImageToCloudinary(req.files.map(file => file.buffer));
+        uploadedImages = await uploadImageToCloudinary({ imageBuffer: req.files.map(file => file.buffer) });
         addProduct.images = uploadedImages.map(img => ({
             url: img.secure_url,
             public_id: img.public_id
@@ -57,9 +54,9 @@ const postController = async (req, res) => {
 
         if (uploadedImages?.length > 0) {
             const publicIds = uploadedImages.map(img => img.public_id);
-            await deleteCloudinaryImages(publicIds).then(() => console.log("success deleted")).catch(error => {
-                console.error('Cloudinary cleanup failed:', error);
-            });
+            await deleteCloudinaryImages(publicIds)
+                .then(() => console.log("success deleted"))
+                .catch(error => console.error('Cloudinary cleanup failed:', error));
         }
 
         let messages = [];

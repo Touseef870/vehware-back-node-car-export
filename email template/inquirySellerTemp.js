@@ -3,117 +3,166 @@ export default function inquirySellerTemp(data) {
     const { productData, inquireData } = data
     return (
         `
-    <!DOCTYPE html>
-<html>
+  <!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <style>
-        .email-container {
-            max-width: 500px;
-            margin: 20px auto;
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            background: #f8f9fa;
-            padding: 24px;
-            text-align: center;
-            border-bottom: 3px solid #e9ecef;
-        }
-        .title {
-            color: #2d3436;
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        .content {
-            padding: 24px;
-        }
-        .detail-item {
-            margin-bottom: 16px;
-            padding: 12px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-        .detail-item strong {
-            color: #6c757d;
-            display: block;
-            margin-bottom: 4px;
-            font-size: 0.9rem;
-        }
-        .remarks {
-            background: #fff9db;
-            border-left: 4px solid #ffe066;
-            padding: 12px;
-            margin-top: 20px;
-        }
-        .footer {
-            text-align: center;
-            padding: 16px;
-            background: #f8f9fa;
-            color: #6c757d;
-            font-size: 0.85rem;
-        }
-        a {
-            color: #1971c2;
-            text-decoration: none;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-    <div class="email-container">
-        <div class="header">
-            <h2 class="title">🚗 New Car Inquiry Received</h2>
-        </div>
 
-         <!-- Product Card -->
-    <div style="margin: 25px 0; border: 1px solid #e5e7eb; border-radius: 8px; padding: 15px;">
-        <img src=${productData.images[0].url} 
-             alt=${productData.name} 
-             style="width: 100%; height: 200px; object-fit: contain; border-radius: 5px; margin-bottom: 15px;">
-        
-        <h3 style="color: #1e40af; margin: 0 0 10px 0;"> ${productData.name} </h3>
-        
-        <div style="color: #4b5563;">
-            <p style="margin: 5px 0;"><strong>Model:</strong>${productData.modelCode} </p>
-            <p style="margin: 5px 0;"><strong>Year:</strong> ${productData.year} </p>
-        </div>
-    </div>
-        
-        <div class="content">
-            
-            
-            <div class="detail-item">
-                <strong>👤 Customer Name</strong>
-                ${inquireData.name}
-            </div>
+<body style="margin: 0; padding: 20px 0; background: #f5f7fa;">
+    <!-- Email Wrapper -->
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto;">
+        <!-- Header -->
+        <tr>
+            <td style="padding: 30px 25px; background: #ffffff; border-radius: 8px 8px 0 0;">
+                <h1 style="margin: 0; color: #1a365d; font-family: Arial, sans-serif; font-size: 24px;">
+                    🚘 New Car Inquiry Received
+                </h1>
+            </td>
+        </tr>
 
-            <div class="detail-item">
-                <strong>📧 Email</strong>
-                <a href="mailto:${inquireData.email}">${inquireData.email}</a>
-            </div>
+        <!-- Vehicle Image -->
+        <tr style="background: #ffffff;">
+            <td style="padding: 0;">
+                <img src=${productData.images[0].url} alt=${productData.name}
+                    style="width: 1; height: auto; display: block; border-bottom: 3px solid #f0f2f5; margin: 0 auto;">
+            </td>
+        </tr>
 
-            <div class="detail-item">
-                <strong>📍 Location</strong>
-                ${inquireData.city}, ${inquireData.country}
-            </div>
+        <!-- Vehicle Details -->
+        <tr>
+            <td style="padding: 25px; background: #ffffff;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="padding-bottom: 15px;">
+                            <h2 style="margin: 0; color: #2d3748; font-family: Arial, sans-serif; font-size: 20px; text-align: center;">
+                                ${productData.name}
+                            </h2>
+                        </td>
+                    </tr>
+                    <tr style="font-size: 1.1rem; ">
+                        <td>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="100%" style="padding: 8px 0;">
+                                        <strong
+                                            style="color: #718096; font-family: Arial, sans-serif; font-weight: bolder;">Model:</strong>
+                                        <span
+                                            style="color: #2d3748; font-family: Arial, sans-serif; font-size: 1.0rem; font-weight: bold;">${productData.modelCode}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="font-size: 1.1rem; ">
+                        <td>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="100%" style="padding: 8px 0;">
+                                        <strong
+                                            style="color: #718096; font-family: Arial, sans-serif; font-weight: bolder">Year:</strong>
+                                        <span
+                                            style="color: #2d3748; font-family: Arial, sans-serif; font-size: 1.0rem; font-weight: bold;">${productData.year}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="font-size: 1.1rem; ">
+                        <td>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="50%" style="padding: 8px 0;">
+                                        <strong
+                                            style="color: #718096; font-family: Arial, sans-serif; font-weight: bolder">Color:</strong>
+                                        <span
+                                            style="color: #2d3748; font-family: Arial, sans-serif; font-size: 1.0rem; font-weight: bold;">${productData.color}</span>
+                                    </td>
+                                    <td width="50%" style="padding: 8px 0;">
+                                        <strong
+                                            style="color: #718096; font-family: Arial, sans-serif; font-weight: bolder">Fuel
+                                            Type:</strong>
+                                        <span
+                                            style="color: #2d3748; font-family: Arial, sans-serif; font-size: 1.0rem; font-weight: bold;">${productData.fuelType}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <hr />
+            </td>
+        </tr>
 
-            <div class="detail-item">
-                <strong>📱 Contact Number</strong>
-                ${inquireData.phoneNumber}
-            </div>
+        <!-- Customer Details -->
+        <tr>
+            <td style="padding: 25px; background: #ffffff;">
+                <h1
+                    style=" color: #1a365d; text-align: center; font-family: Arial, sans-serif; font-size: 1.7rem; text-decoration: underline; margin: 0 0 15px 0;  ">
+                    Customer Details</h1>
+                <table width="100%" cellpadding="0" cellspacing="0"
+                    style="border-collapse: collapse; font-size: 1.0rem;">
+                    <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                            <strong style="color: #718096; font-family: Arial, sans-serif;">👤 Name:</strong>
+                            <span style="color: #2d3748; font-family: Arial, sans-serif;"> ${inquireData.name}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                            <strong style="color: #718096; font-family: Arial, sans-serif;">📧 Email:</strong>
+                            <a href="mailto:${inquireData.email}"
+                                style="color: #3182ce; text-decoration: none; font-family: Arial, sans-serif;">
+                                ${inquireData.email}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                            <strong style="color: #718096; font-family: Arial, sans-serif;">📱 Contact:</strong>
+                            <span style="color: #2d3748; font-family: Arial, sans-serif;">
+                                ${inquireData.phoneNumber}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 0;">
+                            <strong style="color: #718096; font-family: Arial, sans-serif;">📍 Location:</strong>
+                            <span style="color: #2d3748; font-family: Arial, sans-serif;">${inquireData.city},
+                                ${inquireData.country}</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
-            <div class="remarks">
-                <strong>💬 Customer Remarks</strong>
-                <p>${inquireData.remarks}</p>
-            </div>
-        </div>
+        <!-- Remarks Section -->
+        <tr>
+            <td style="padding: 25px; background: #ffffff; border-radius: 0 0 8px 8px;">
+                <div style="background: #f8fafc; padding: 20px; border-radius: 6px; border-left: 4px solid #3182ce;">
+                    <h3 style="margin: 0 0 15px 0; color: #2d3748; font-family: Arial, sans-serif;">📝 Customer Remarks
+                    </h3>
+                    <p style="margin: 0; color: #4a5568; font-family: Arial, sans-serif; line-height: 1.5;">
+                        ${inquireData.remarks}
+                    </p>
+                </div>
+            </td>
+        </tr>
 
-        <div class="footer">
-            <p>🌐 http://globaltradingcars.com</p>
-        </div>
-    </div>
+        <!-- Footer -->
+        <tr>
+            <td style="padding: 25px 0; text-align: center;">
+                <p style="margin: 0; color: #718096; font-family: Arial, sans-serif; font-size: 14px;">
+                    Sent by Global Trading Cars<br>
+                    <a href="http://globaltradingcars.com" style="color: #3182ce; text-decoration: none;">🌐
+                        www.globaltradingcars.com</a>
+                </p>
+            </td>
+        </tr>
+    </table>
 </body>
+
 </html>
     `
     )

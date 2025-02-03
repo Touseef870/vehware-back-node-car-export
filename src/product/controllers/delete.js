@@ -1,6 +1,7 @@
 import Response from '../../../class/response.js';
 import deleteData from "../services/delete.js"
 import { isValidMongooseId } from '../../../utils/index.js';
+import { deleteCloudinaryImages } from "../../../Upload Cloudinary/index.js"
 
 const deleteController = async (req, res) => {
     const response = new Response(res);
@@ -17,6 +18,12 @@ const deleteController = async (req, res) => {
         if (!responseDeleteProduct) {
             return response.error([], "Sorry! Data Could not Deleted, Please Try Again");
         }
+
+        const publicIds = responseDeleteProduct.images.map(img => img.public_id);
+        await deleteCloudinaryImages(publicIds)
+            .then(() => console.log("image deleted successfully"))
+            .catch(error => console.error('Cloudinary cleanup failed:', error));
+
 
         return response.success(null, 'Deleted Successfully');
     } catch (err) {

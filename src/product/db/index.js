@@ -1,6 +1,6 @@
 import ProductModel from "../models/index.js";
 
-const getAll = async () => await ProductModel.find();
+const getAll = ({ limit, skip }) => ProductModel.find().limit(limit).skip(skip)
 
 const addData = (data) => new ProductModel(data).save().then((res) => res.toObject()).catch((err) => { throw err });
 

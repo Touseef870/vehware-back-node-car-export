@@ -17,8 +17,12 @@ const postController = async (req, res) => {
         }
 
         const responseProduct = await getDataById(productId);
+        if (!responseProduct) {
+            return response.error(null, 'Product not found');
+        }
+
         const findProduct = responseProduct.toObject();
-        
+
         if (!findProduct) {
             return response.error(null, 'Product not found');
         }
@@ -33,10 +37,19 @@ const postController = async (req, res) => {
             remarks
         }
         const data = await postData(inquiryProduct);
+        if (!data) {
+            return response.error(null, 'Unfortunatly, Inquiry not sent');
+        }
+
 
         const inquiryDetails = {
             productData: findProduct,
             inquireData: data
+        }
+
+        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: process.env.ADMIN_EMAIL, template: inquirySellerTemp })
+        if (!inquirySellerEmail.success) {
+            return response.error(inquirySellerEmail.error, 'Failed to send seller email');
         }
 
         const inquiryAgentEmail = await sendEmail({ data: inquiryDetails, customerEmail: data.email, template: inquiryAgentTemp })
@@ -44,19 +57,8 @@ const postController = async (req, res) => {
             return response.error(inquiryAgentEmail.error, 'Failed to send agent email');
         }
 
-        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: "touseefabid737@gmail.com", template: inquirySellerTemp })
-        if (!inquirySellerEmail.success) {
-            return response.error(inquirySellerEmail.error, 'Failed to send seller email');
-        }
 
-
-        if (!data) {
-            return response.error(null, 'Unfortunatly, Inquiry not sent');
-        }
-
-
-
-        return response.success(null, 'Data fetched successfully');
+        return response.success(null, 'Inquiry Send successfully');
     } catch (error) {
         let messages = [];
         if (error.errors) {

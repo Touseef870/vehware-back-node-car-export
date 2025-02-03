@@ -1,4 +1,4 @@
-import generateTrackingId from './generateTrackingId.js';
+import generateNanoId from './generateNanoId.js';
 import isValidMongooseId from "./isValidMongooseId.js"
 import generateToken from './generateToken.js';
 import decodeVerifiedToken from './decodeVerifiedToken.js';
@@ -7,7 +7,7 @@ import sendEmail from "./retriveEmail.js"
 import wait from "./delay.js"
 
 export {
-    generateTrackingId,
+    generateNanoId,
     generateToken,
     decodeVerifiedToken,
     generateOTP,
