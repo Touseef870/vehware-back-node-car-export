@@ -55,10 +55,8 @@ const CarSchema = new Schema({
         enum: ["2WD", "4WD", "AWD"]
     },
     doors: {
-        type: Number,
+        type: String,
         required: true,
-        min: 2,
-        max: 6
     },
     steering: {
         type: String,
