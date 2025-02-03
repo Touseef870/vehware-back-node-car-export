@@ -36,8 +36,8 @@ const postController = async (req, res) => {
         vehicleWeight       : vehicleWeight,
         grossVehicleWeight  : grossVehicleWeight,
         maxLoadingCapacity  : maxLoadingCapacity,
-        // sellerEmail         : email,
-        // sellerId            : _id,
+        sellerEmail         : email,
+        sellerId            : _id,
     }
 
     let uploadedImages = [];
