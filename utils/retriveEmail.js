@@ -30,10 +30,11 @@ async function sendEmail(prop = { data, customerEmail, template }) {
 
     try {
         const info = await transporter.sendMail(mailOptions);
+        console.log("Email sent successfully")
         return { data: info, success: true };
     } catch (error) {
         console.error('Error sending email:', error);
-        return { message: error.message || 'Unknown error', success: false };
+        return { error: error.message || 'Unknown error', success: false };
     }
 }
 
