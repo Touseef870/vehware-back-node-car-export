@@ -40,20 +40,14 @@ const postController = async (req, res) => {
         }
 
         const inquiryAgentEmail = await sendEmail({ data: inquiryDetails, customerEmail: data.email, template: inquiryAgentTemp })
-            .then(() => {
-                console.log("Email sent successfully");
-            })
-            .catch((error) => {
-                response.error(null, 'Failed to send sender email');
-            });
+        if (!inquiryAgentEmail.success) {
+            return response.error(inquiryAgentEmail.error, 'Failed to send agent email');
+        }
 
-        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: findProduct.sellerEmail, template: inquirySellerTemp })
-            .then(() => {
-                console.log("Email sent successfully");
-            })
-            .catch((error) => {
-                response.error(null, 'Failed to send sender email');
-            });
+        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: "touseefabid737@gmail.com", template: inquirySellerTemp })
+        if (!inquirySellerEmail.success) {
+            return response.error(inquirySellerEmail.error, 'Failed to send seller email');
+        }
 
 
         if (!data) {
@@ -77,4 +71,4 @@ const postController = async (req, res) => {
     }
 }
 
-export default postController;
+export default postController;  

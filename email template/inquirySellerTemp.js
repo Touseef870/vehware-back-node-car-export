@@ -1,7 +1,5 @@
 export default function inquirySellerTemp(data) {
 
-    console.log(data, "data")
-
     const { productData, inquireData } = data
     return (
         `
