@@ -10,8 +10,7 @@ const router = Router();
 router.post("/add", verifyToken, uploadMiddleware, postController)
 router.get("/get", getController)
 router.get("/get/:id", getByIdController)
-
-// router.delete("/:id", deleteController)
+router.delete("/delete/:id", deleteController)
 // router.put("/:id", updateController)
 
 export default router;
