@@ -2,7 +2,6 @@ import cloudinary from 'cloudinary';
 
 const deleteCloudinaryImages = async (publicIds, options = {}) => {
     try {
-        // Validate maximum 6 images
         if (!publicIds || publicIds.length === 0) {
             throw new Error('No public IDs provided for deletion.');
         }
@@ -10,7 +9,6 @@ const deleteCloudinaryImages = async (publicIds, options = {}) => {
             throw new Error('Maximum 6 images can be deleted at once.');
         }
 
-        // Single API call for bulk deletion (best for <=100 images)
         const result = await cloudinary.v2.api.delete_resources(publicIds, {
             resource_type: 'image',
             invalidate: true,
@@ -18,7 +16,6 @@ const deleteCloudinaryImages = async (publicIds, options = {}) => {
             ...options
         });
 
-        // Check actual deletion status
         const failedDeletions = Object.entries(result.deleted)
             .filter(([_, status]) => status !== 'deleted')
             .map(([id]) => id);

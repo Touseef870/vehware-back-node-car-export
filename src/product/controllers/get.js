@@ -5,7 +5,7 @@ import ProductModel from "../models/index.js"
 const getController = async (req, res) => {
     const response = new Response(res);
 
-    const { limit, skip, search } = req.query;
+    const { limit, skip } = req.query;
 
     let recordsLimit = parseInt(limit) || 10;
     let recordsSkip = parseInt(skip) || 0;
@@ -15,9 +15,17 @@ const getController = async (req, res) => {
 
     try {
 
-        let data = await getData({ limit: recordsLimit, skip: recordsSkip, search });
+        const allowedFilters = ["name", "modelCode", "year", "bodyType"];
+
+        const filters = Object.fromEntries(
+            Object.entries(req.query)
+                .filter(([key]) => allowedFilters.includes(key))
+                .map(([key, value]) => [key, { $regex: String(value), $options: "i" }])
+        );
+
+        let data = await getData({ limit: recordsLimit, skip: recordsSkip, filters });
         if (!data) {
-            return response.error({}, 'Data not found');
+            return response.error(null, 'Data not found');
         }
 
         let dataModified = data.map((product) => {
@@ -51,7 +59,8 @@ const getController = async (req, res) => {
             }
         });
 
-        const totalProducts = await ProductModel.countDocuments();
+
+        const totalProducts = await ProductModel.countDocuments(filters);
 
         const dataPaginate = {
             products: dataModified,
@@ -60,7 +69,7 @@ const getController = async (req, res) => {
             skip: recordsSkip,
         }
 
-        return response.success(dataPaginate);
+        return response.success(dataPaginate, "Data Get Successfully");
     } catch (error) {
 
         let messages = [];
