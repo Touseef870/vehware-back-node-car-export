@@ -1,6 +1,6 @@
 import Model from "../models/index.js";
 
-const getAll = async () => await Model.find();
+const getAll = async ({ limit, skip }) => await Model.find().limit(limit).skip(skip);
 
 const addData = (data) => new Model(data).save().then((user) => user.toObject());
 

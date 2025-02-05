@@ -7,7 +7,7 @@ const updateController = async (req, res) => {
 
     const { id } = req.params;
 
-    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, m3, stock, description } = req.body;
+    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, stock, description } = req.body;
 
     const idValid = isValidMongooseId(id);
     if (!idValid) {
@@ -15,7 +15,7 @@ const updateController = async (req, res) => {
     }
 
     if (Object.keys(req.body).length === 0) {
-        return response.error(null, "Request body cannot be empty");
+        return response.error(null, "Validation Error: Please include the necessary fields in the request body.");
     }
 
 
@@ -37,7 +37,6 @@ const updateController = async (req, res) => {
             engineSize: engineSize,
             mileage: mileage,
             fuelType: fuelType,
-            m3: m3,
             description: description,
             stock: stock
         }
@@ -51,9 +50,6 @@ const updateController = async (req, res) => {
             for (const field in error.errors) {
                 messages.push(error.errors[field].message);
             }
-        }
-        else if (error.message.includes('Cloudinary')) {
-            messages.push('Image upload failed: ' + error.message);
         }
         else {
             messages.push(error.message);

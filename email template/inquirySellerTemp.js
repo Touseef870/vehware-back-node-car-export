@@ -62,6 +62,20 @@ export default function inquirySellerTemp(data) {
                                 <tr>
                                     <td width="100%" style="padding: 8px 0;">
                                         <strong
+                                            style="color: #718096; font-family: Arial, sans-serif; font-weight: bolder;">Reference No:</strong>
+                                        <span
+                                            style="color: #2d3748; font-family: Arial, sans-serif; font-size: 1.0rem; font-weight: bold;">${productData.referenceNo}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="font-size: 1.1rem; ">
+                        <td>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="100%" style="padding: 8px 0;">
+                                        <strong
                                             style="color: #718096; font-family: Arial, sans-serif; font-weight: bolder">Year:</strong>
                                         <span
                                             style="color: #2d3748; font-family: Arial, sans-serif; font-size: 1.0rem; font-weight: bold;">${productData.year}</span>

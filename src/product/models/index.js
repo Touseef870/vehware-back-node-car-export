@@ -78,11 +78,6 @@ const CarSchema = new Schema({
         required: true,
         enum: ["Petrol", "Diesel", "Hybrid", "Electric"]
     },
-    m3: {
-        type: Number,
-        required: true,
-        min: 0
-    },
     images: [{
         url: {
             type: String,
@@ -110,7 +105,7 @@ const CarSchema = new Schema({
     },
     referenceNo : {
         type: String,
-        required: true,
+        required: [true, "Reference No. is required"],
         unique: true,
     }
 

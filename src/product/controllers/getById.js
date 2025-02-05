@@ -21,12 +21,13 @@ export default async function getByIdController(req, res) {
         const dataModified = {
             _id                 : product._id,
             name                : product.name,
+            description         : product.description,
+            color               : product.color,
             price               : product.price,
             inventoryLocation   : product.inventoryLocation,
             modelCode           : product.modelCode,
             year                : product.year,
             transmission        : product.transmission,
-            color               : product.color,
             drive               : product.drive,
             doors               : product.doors,
             steering            : product.steering,
@@ -36,14 +37,12 @@ export default async function getByIdController(req, res) {
             engineSize          : product.engineSize,
             mileage             : product.mileage,
             fuelType            : product.fuelType,
-            m3                  : product.m3,
-            image               : product.images,
-            publishAt           : product.createdAt,
             ratings             : product.ratings,
             numOfReviews        : product.numOfReviews,
             stock               : product.stock,
-            description         : product.description,
-            referenceNo        : product.referenceNo
+            referenceNo        : product.referenceNo,
+            image               : product.images,
+            publishAt           : product.createdAt,
         }
 
         response.success(dataModified);

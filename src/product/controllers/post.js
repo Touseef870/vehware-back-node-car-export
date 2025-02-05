@@ -12,7 +12,7 @@ const postController = async (req, res) => {
         return response.error("the token is invalid");
     }
 
-    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, m3, description } = req.body;
+    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, description } = req.body;
 
     const addProduct = {
         name: name,
@@ -30,7 +30,6 @@ const postController = async (req, res) => {
         engineSize: engineSize,
         mileage: mileage,
         fuelType: fuelType,
-        m3: m3,
         description: description
     }
 

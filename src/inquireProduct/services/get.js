@@ -2,8 +2,8 @@ import { getAll } from "../db/index.js";
 
 
 
-const getData = () => {
-    return getAll();
+const getData = ({ limit, skip }) => {
+    return getAll({ limit, skip });
 }
 
 export default getData;

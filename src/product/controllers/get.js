@@ -15,7 +15,7 @@ const getController = async (req, res) => {
 
     try {
 
-        const allowedFilters = ["name", "modelCode", "year", "bodyType"];
+        const allowedFilters = ["name", "modelCode", "year", "bodyType", "referenceNo"];
 
         const search = Object.fromEntries(
             Object.entries(req.query)
@@ -32,6 +32,7 @@ const getController = async (req, res) => {
             return {
                 id: product._id,
                 name: product.name,
+                description : product.description,
                 price: product.price,
                 inventoryLocation: product.inventoryLocation,
                 modelCode: product.modelCode,
@@ -47,14 +48,12 @@ const getController = async (req, res) => {
                 engineSize: product.engineSize,
                 mileage: product.mileage,
                 fuelType: product.fuelType,
-                m3: product.m3,
-                image: product.images,
-                publishAt: product.createdAt,
                 ratings: product.ratings,
                 numOfReviews: product.numOfReviews,
-                stock: product.stock,
                 referenceNo: product.referenceNo,
-                description : product.description
+                stock: product.stock,
+                image: product.images,
+                publishAt: product.createdAt,
             }
         });
 
