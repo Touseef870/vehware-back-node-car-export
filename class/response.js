@@ -2,7 +2,7 @@ class Response {
     constructor(res) {
         this.res = res;
     }
-
+    
     success(data = {}, message = "Fetched Successfully", statusCode = 200) {
         this.res.status(statusCode).json({
             status: 1,

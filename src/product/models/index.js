@@ -136,6 +136,10 @@ const CarSchema = new Schema({
         type: Number,
         default: 0,
     },
+    stock: {
+        type: Boolean,
+        default: true
+    }
 
 }, { timestamps: true });
 

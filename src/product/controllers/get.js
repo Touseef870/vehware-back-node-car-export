@@ -17,13 +17,13 @@ const getController = async (req, res) => {
 
         const allowedFilters = ["name", "modelCode", "year", "bodyType"];
 
-        const filters = Object.fromEntries(
+        const search = Object.fromEntries(
             Object.entries(req.query)
                 .filter(([key]) => allowedFilters.includes(key))
                 .map(([key, value]) => [key, { $regex: String(value), $options: "i" }])
         );
 
-        let data = await getData({ limit: recordsLimit, skip: recordsSkip, filters });
+        let data = await getData({ limit: recordsLimit, skip: recordsSkip, search });
         if (!data) {
             return response.error(null, 'Data not found');
         }
