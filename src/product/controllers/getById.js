@@ -36,16 +36,14 @@ export default async function getByIdController(req, res) {
             engineSize          : product.engineSize,
             mileage             : product.mileage,
             fuelType            : product.fuelType,
-            dimensions          : product.dimensions,
             m3                  : product.m3,
-            vehicleWeight       : product.vehicleWeight,
-            grossVehicleWeight  : product.grossVehicleWeight,
-            maxLoadingCapacity  : product.maxLoadingCapacity,
             image               : product.images,
             publishAt           : product.createdAt,
             ratings             : product.ratings,
             numOfReviews        : product.numOfReviews,
             stock               : product.stock,
+            description         : product.description,
+            refferenceNo        : product.refferenceNo
         }
 
         response.success(dataModified);

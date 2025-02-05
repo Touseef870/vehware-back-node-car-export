@@ -6,8 +6,8 @@ const updateController = async (req, res) => {
     const response = new Response(res);
 
     const { id } = req.params;
-    
-    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, dimensions, m3, vehicleWeight, grossVehicleWeight, maxLoadingCapacity, stock } = req.body;
+
+    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, m3, stock, description } = req.body;
 
     const idValid = isValidMongooseId(id);
     if (!idValid) {
@@ -37,17 +37,14 @@ const updateController = async (req, res) => {
             engineSize: engineSize,
             mileage: mileage,
             fuelType: fuelType,
-            dimensions: dimensions,
             m3: m3,
-            vehicleWeight: vehicleWeight,
-            grossVehicleWeight: grossVehicleWeight,
-            maxLoadingCapacity: maxLoadingCapacity,
+            description: description,
             stock: stock
         }
 
         const updatedProduct = await updateData(id, requestUpdateData);
 
-        return response.success("OK", "Data Updated Successfully");
+        return response.success(updatedProduct, "Data Updated Successfully");
     } catch (error) {
         let messages = [];
         if (error.name === 'ValidationError' && error.errors) {

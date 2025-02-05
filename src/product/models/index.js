@@ -3,79 +3,66 @@ import mongoose, { mongo, Schema } from "mongoose";
 const CarSchema = new Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, "Name is required"],
         trim: true
     },
-    // sellerEmail: {
-    //     type: String,
-    //     required: [true, 'Email is required'],
-    //     trim: true,
-    //     match: [
-    //         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    //         'Please enter a valid email address'
-    //     ]
-    // },
-    // sellerId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: [true, "Pleaes provide seller id"]
-    // },
-    // price: {
-    //     type: Number,
-    //     required: true,
-    //     min: 0
-    // },
+    description:{
+        type: String,
+        required: [true, "Description is required"],
+        trim: true,
+    },
     inventoryLocation: {
         type: String,
-        required: true,
+        required: [true, "Inventory Location is required"],
         trim: true
     },
     modelCode: {
         type: String,
-        required: true,
+        required: [true, "Model Code is required"],
         trim: true
     },
     year: {
         type: String,
-        required: true,
+        required: [true, "Year is required"],
         match: [/^\d{4}/, "Year format should be YYYY"]
     },
     transmission: {
         type: String,
-        required: true,
+        required: [true, "Transmission is required"],
         enum: ["AT (Automatic)", "MT (Manual)"]
     },
     color: {
         type: String,
-        required: true,
+        required: [true, "Color is required"],
         trim: true
     },
     drive: {
         type: String,
-        required: true,
+        required: [true, "Drive is required"],
         enum: ["2WD", "4WD", "AWD"]
     },
     doors: {
         type: String,
-        required: true,
+        required: [true, "Doors is required"],
     },
     steering: {
         type: String,
-        required: true,
+        required: [true, "Steering is required"],
         enum: ["LHD (Left-Hand Drive)", "RHD (Right-Hand Drive)"]
     },
     seats: {
         type: Number,
-        required: true,
+        required: [true, "Seats is required"],
         min: 1
     },
     engineType: {
         type: String,
-        required: true,
+        required: [true, "Engine Type is required"],
         trim: true
     },
     bodyType: {
         type: String,
-        required: true,
+        required: [true, "Body Type is required"],
         trim: true
     },
     engineSize: {
@@ -91,26 +78,7 @@ const CarSchema = new Schema({
         required: true,
         enum: ["Petrol", "Diesel", "Hybrid", "Electric"]
     },
-    dimensions: {
-        type: String,
-        required: true,
-        trim: true
-    },
     m3: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    vehicleWeight: {
-        type: String,
-        required: [true, "Vehicle weight is required"],
-    },
-    grossVehicleWeight: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    maxLoadingCapacity: {
         type: Number,
         required: true,
         min: 0
@@ -139,6 +107,11 @@ const CarSchema = new Schema({
     stock: {
         type: Boolean,
         default: true
+    },
+    refferenceNo : {
+        type: String,
+        required: true,
+        unique: true,
     }
 
 }, { timestamps: true });

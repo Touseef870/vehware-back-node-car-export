@@ -1,6 +1,6 @@
 import Response from '../../../class/response.js';
 import { uploadImageToCloudinary, deleteCloudinaryImages } from '../../../Upload Cloudinary/index.js';
-import { decodeVerifiedToken } from "../../../utils/index.js"
+import { decodeVerifiedToken, generateNanoId } from "../../../utils/index.js"
 import postData from '../services/post.js';
 
 const postController = async (req, res) => {
@@ -12,7 +12,7 @@ const postController = async (req, res) => {
         return response.error("the token is invalid");
     }
 
-    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, dimensions, m3, vehicleWeight, grossVehicleWeight, maxLoadingCapacity } = req.body;
+    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, m3, description } = req.body;
 
     const addProduct = {
         name: name,
@@ -30,16 +30,16 @@ const postController = async (req, res) => {
         engineSize: engineSize,
         mileage: mileage,
         fuelType: fuelType,
-        dimensions: dimensions,
         m3: m3,
-        vehicleWeight: vehicleWeight,
-        grossVehicleWeight: grossVehicleWeight,
-        maxLoadingCapacity: maxLoadingCapacity,
+        description: description
     }
 
     let uploadedImages = [];
 
     try {
+
+        const generateRefferenceNo = generateNanoId();
+        addProduct.refferenceNo = generateRefferenceNo;
 
         uploadedImages = await uploadImageToCloudinary({ imageBuffer: req.files.map(file => file.buffer) });
         addProduct.images = uploadedImages.map(img => ({
