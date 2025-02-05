@@ -60,7 +60,7 @@ const getController = async (req, res) => {
         });
 
 
-        const totalProducts = await ProductModel.countDocuments(filters);
+        const totalProducts = await ProductModel.countDocuments(search);
 
         const dataPaginate = {
             products: dataModified,

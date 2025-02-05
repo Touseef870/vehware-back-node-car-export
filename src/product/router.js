@@ -12,6 +12,6 @@ router.post("/add", verifyToken, uploadMiddleware, postController)
 router.get("/get", getController)
 router.get("/get/:id", getByIdController)
 router.delete("/delete/:id", verifyToken, deleteController)
-router.patch("/update/:id", updateController)
+router.patch("/update/:id", verifyToken, updateController)
 
 export default router;
