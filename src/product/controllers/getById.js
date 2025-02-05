@@ -43,7 +43,7 @@ export default async function getByIdController(req, res) {
             numOfReviews        : product.numOfReviews,
             stock               : product.stock,
             description         : product.description,
-            refferenceNo        : product.refferenceNo
+            referenceNo        : product.referenceNo
         }
 
         response.success(dataModified);

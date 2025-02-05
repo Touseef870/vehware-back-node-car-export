@@ -53,7 +53,7 @@ const getController = async (req, res) => {
                 ratings: product.ratings,
                 numOfReviews: product.numOfReviews,
                 stock: product.stock,
-                refferenceNo: product.refferenceNo,
+                referenceNo: product.referenceNo,
                 description : product.description
             }
         });

@@ -108,7 +108,7 @@ const CarSchema = new Schema({
         type: Boolean,
         default: true
     },
-    refferenceNo : {
+    referenceNo : {
         type: String,
         required: true,
         unique: true,

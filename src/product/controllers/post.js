@@ -38,8 +38,8 @@ const postController = async (req, res) => {
 
     try {
 
-        const generateRefferenceNo = generateNanoId();
-        addProduct.refferenceNo = generateRefferenceNo;
+        const generatereferenceNo = generateNanoId();
+        addProduct.referenceNo = generatereferenceNo;
 
         uploadedImages = await uploadImageToCloudinary({ imageBuffer: req.files.map(file => file.buffer) });
         addProduct.images = uploadedImages.map(img => ({
