@@ -56,6 +56,7 @@ const getController = async (req, res) => {
                 publishAt: product.createdAt,
                 ratings: product.ratings,
                 numOfReviews: product.numOfReviews,
+                stock: product.stock
             }
         });
 

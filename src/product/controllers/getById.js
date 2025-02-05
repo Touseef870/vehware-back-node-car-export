@@ -45,6 +45,7 @@ export default async function getByIdController(req, res) {
             publishAt           : product.createdAt,
             ratings             : product.ratings,
             numOfReviews        : product.numOfReviews,
+            stock               : product.stock,
         }
 
         response.success(dataModified);
