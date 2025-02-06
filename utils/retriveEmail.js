@@ -4,27 +4,28 @@ import nodemailer from 'nodemailer'
 dotenv.config()
 
 const emailConfig = {
-    service: 'Gmail',
-    host: "smtp.gmail.com",
+    host: "mail.globaltradingcars.com",
     port: 465,
     secure: true,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
+    tls: {
+        rejectUnauthorized: false,
+    }
 };
 
+async function sendEmail(prop = { data, customerEmail, template, subject }) {
 
-
-async function sendEmail(prop = { data, customerEmail, template }) {
-
-    const { data, customerEmail, template } = prop;
+    const { data, customerEmail, template, subject } = prop;
 
     const transporter = nodemailer.createTransport(emailConfig);
 
     const mailOptions = {
+        from: `"Global Trading Cars" <${process.env.EMAIL_USER}>`,
         to: customerEmail,
-        subject: 'Global Trading Cars',
+        subject: subject,
         html: template(data)
     };
 

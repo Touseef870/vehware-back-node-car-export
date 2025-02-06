@@ -48,16 +48,16 @@ const postController = async (req, res) => {
             inquireData: data
         }
 
-        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: process.env.ADMIN_EMAIL, template: inquirySellerTemp })
-        if (!inquirySellerEmail.success) {
-            return response.error(inquirySellerEmail.error, 'Failed to send seller email');
-        }
 
-        const inquiryAgentEmail = await sendEmail({ data: inquiryDetails, customerEmail: data.email, template: inquiryAgentTemp })
+        const inquiryAgentEmail = await sendEmail({ data: inquiryDetails, customerEmail: data.email, template: inquiryAgentTemp, subject: 'Inquiry For Cars' })
         if (!inquiryAgentEmail.success) {
             return response.error(inquiryAgentEmail.error, 'Failed to send agent email');
         }
 
+        const inquirySellerEmail = await sendEmail({ data: inquiryDetails, customerEmail: process.env.EMAIL_USER, template: inquirySellerTemp, subject: "New Inquiry Received For Cars" })
+        if (!inquirySellerEmail.success) {
+            return response.error(inquirySellerEmail.error, 'Failed to send seller email');
+        }
 
         return response.success(null, 'Inquiry Send successfully');
     } catch (error) {

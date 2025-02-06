@@ -27,7 +27,7 @@ export default function inquirySellerTemp(data) {
         <tr style="background: #ffffff;">
             <td style="padding: 0;">
                 <img src=${productData.images[0].url} alt=${productData.name}
-                    style="width: 1; height: auto; display: block; border-bottom: 3px solid #f0f2f5; margin: 0 auto;">
+                    style="width: 200px; height: 200px; display: block; border-bottom: 3px solid #f0f2f5; margin: 0 auto;">
             </td>
         </tr>
 
