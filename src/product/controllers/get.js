@@ -7,7 +7,7 @@ const getController = async (req, res) => {
 
     const { limit, skip } = req.query;
 
-    let recordsLimit = parseInt(limit) || 10;
+    let recordsLimit = parseInt(limit) || 20;
     let recordsSkip = parseInt(skip) || 0;
 
     if (recordsLimit > 20) recordsLimit = 20;
