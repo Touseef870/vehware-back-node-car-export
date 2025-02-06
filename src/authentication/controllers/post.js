@@ -1,10 +1,8 @@
 import Response from '../../../class/response.js';
 import postData from '../services/post.js';
 import generateToken from '../../../utils/generateToken.js';
-import { wait } from '../../../utils/index.js';
 
 const postController = async (req, res) => {
-    await wait(2000);
     const response = new Response(res);
 
     let userInfo = {};
