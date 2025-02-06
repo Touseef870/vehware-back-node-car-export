@@ -7,7 +7,7 @@ import getByIdService from "../services/getById.js"
 
 export default async function postController(req, res) {
     const response = new Response(res);
-    await wait(3000);
+    await wait(2000);
 
     let { _id } = decodeVerifiedToken(req.headers.authorization)
 

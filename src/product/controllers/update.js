@@ -1,8 +1,9 @@
 import Response from '../../../class/response.js';
 import updateData from "../services/update.js"
-import { isValidMongooseId } from '../../../utils/index.js';
+import { isValidMongooseId, wait } from '../../../utils/index.js';
 
 const updateController = async (req, res) => {
+    await wait(2000);
     const response = new Response(res);
 
     const { id } = req.params;

@@ -1,8 +1,9 @@
 import Response from '../../../class/response.js';
 import deleteData from "../services/delete.js"
-import { isValidMongooseId } from '../../../utils/index.js';
+import { isValidMongooseId, wait } from '../../../utils/index.js';
 
 const deleteController = async (req, res) => {
+    await wait(2000);
     const response = new Response(res);
     const { id } = req.params
 

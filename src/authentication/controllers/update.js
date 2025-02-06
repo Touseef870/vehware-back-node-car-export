@@ -3,7 +3,7 @@ import updateData from '../services/update.js';
 import { wait, decodeVerifiedToken } from '../../../utils/index.js';
 
 const updateController = async (req, res) => {
-    await wait(3000); 
+    await wait(2000); 
     const response = new Response(res);
     
     let { _id } = decodeVerifiedToken(req.headers.authorization)

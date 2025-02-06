@@ -4,7 +4,7 @@ import generateToken from '../../../utils/generateToken.js';
 import { wait } from '../../../utils/index.js';
 
 const postController = async (req, res) => {
-    await wait(3000);
+    await wait(2000);
     const response = new Response(res);
 
     let userInfo = {};

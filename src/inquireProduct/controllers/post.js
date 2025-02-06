@@ -1,10 +1,11 @@
 import Response from '../../../class/response.js';
 import postData from "../services/post.js"
-import { isValidMongooseId, sendEmail } from "../../../utils/index.js"
+import { isValidMongooseId, sendEmail, wait } from "../../../utils/index.js"
 import getDataById from "../../product/services/getById.js"
 import { inquiryAgentTemp, inquirySellerTemp } from "../../../email template/index.js"
 
 const postController = async (req, res) => {
+    await wait(2000);
     const response = new Response(res);
 
     const { productId, name, email, country, number, city, remarks } = req.body;

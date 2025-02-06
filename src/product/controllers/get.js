@@ -1,8 +1,10 @@
 import Response from '../../../class/response.js';
 import getData from "../services/get.js"
 import ProductModel from "../models/index.js"
+import { wait } from "../../../utils/index.js"
 
 const getController = async (req, res) => {
+    await wait(2000);
     const response = new Response(res);
 
     const { limit, skip } = req.query;
@@ -32,7 +34,7 @@ const getController = async (req, res) => {
             return {
                 id: product._id,
                 name: product.name,
-                description : product.description,
+                description: product.description,
                 price: product.price,
                 inventoryLocation: product.inventoryLocation,
                 modelCode: product.modelCode,

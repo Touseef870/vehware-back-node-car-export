@@ -3,7 +3,7 @@ import { getById } from "../db/index.js";
 import { wait } from '../../../utils/index.js';
 
 const getByIdController = async (req, res) => {
-    await wait(3000);
+    await wait(2000);
     const response = new Response(res);
     const { id } = req.params;
 

@@ -1,8 +1,10 @@
 import Response from '../../../class/response.js';
 import getData from "../services/get.js"
 import model from "../models/index.js"
+import { wait } from "../../../utils/index.js"
 
 const getController = async (req, res) => {
+    await wait(2000);
     const response = new Response(res);
 
     const { limit, skip } = req.query;

@@ -1,9 +1,10 @@
 import Response from '../../../class/response.js';
 import { uploadImageToCloudinary, deleteCloudinaryImages } from '../../../Upload Cloudinary/index.js';
-import { decodeVerifiedToken, generateNanoId } from "../../../utils/index.js"
+import { decodeVerifiedToken, generateNanoId, wait } from "../../../utils/index.js"
 import postData from '../services/post.js';
 
 const postController = async (req, res) => {
+    await wait(2000);
     const response = new Response(res);
 
     let { _id, email } = decodeVerifiedToken(req.headers.authorization)

@@ -1,8 +1,9 @@
 import Response from '../../../class/response.js';
 import getDataById from "../services/getById.js"
-import { isValidMongooseId } from '../../../utils/index.js';
+import { isValidMongooseId, wait } from '../../../utils/index.js';
 
 export default async function getByIdController(req, res) {
+    await wait(2000);
     const response = new Response(res);
 
     const { id } = req.params;
