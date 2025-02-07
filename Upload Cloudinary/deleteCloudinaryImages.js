@@ -5,7 +5,7 @@ const deleteCloudinaryImages = async (publicIds, options = {}) => {
         if (!publicIds || publicIds.length === 0) {
             throw new Error('No public IDs provided for deletion.');
         }
-        if (publicIds.length > 6) {
+        if (publicIds.length > 20) {
             throw new Error('Maximum 6 images can be deleted at once.');
         }
 
