@@ -38,7 +38,7 @@ const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
     limits: { fileSize: 10 * 1024 * 1024 },
-}).array("images", 6);
+}).array("images", 20);
 
 
 export function uploadMiddleware(req, res, next) {
@@ -51,7 +51,7 @@ export function uploadMiddleware(req, res, next) {
                     case 'LIMIT_FILE_SIZE':
                         return response.error({}, 'Maximum file size is 10MB');
                     case 'LIMIT_FILE_COUNT':
-                        return response.error({}, 'Maximum of 6 images allowed');
+                        return response.error({}, 'Maximum of 20 images allowed');
                     case 'LIMIT_UNEXPECTED_FILE':
                         return response.error({}, "Field name must be 'images'");
                     case 'INVALID_FILE_TYPE':
