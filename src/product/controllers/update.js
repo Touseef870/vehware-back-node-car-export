@@ -8,7 +8,7 @@ const updateController = async (req, res) => {
 
     const { id } = req.params;
 
-    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, stock, description } = req.body;
+    const { name, inventoryLocation, modelCode, year, transmission, color, drive, doors, steering, seats, engineType, bodyType, engineSize, mileage, fuelType, stock, description, chassisNo } = req.body;
 
     const idValid = isValidMongooseId(id);
     if (!idValid) {
@@ -24,6 +24,8 @@ const updateController = async (req, res) => {
 
         const requestUpdateData = {
             name: name,
+            description: description,
+            chassisNo: chassisNo,
             inventoryLocation: inventoryLocation,
             modelCode: modelCode,
             year: year,
@@ -38,8 +40,7 @@ const updateController = async (req, res) => {
             engineSize: engineSize,
             mileage: mileage,
             fuelType: fuelType,
-            description: description,
-            stock: stock
+            stock: stock,
         }
 
         const updatedProduct = await updateData(id, requestUpdateData);

@@ -6,7 +6,7 @@ const CarSchema = new Schema({
         required: [true, "Name is required"],
         trim: true
     },
-    description:{
+    description: {
         type: String,
         required: [true, "Description is required"],
         trim: true,
@@ -19,6 +19,11 @@ const CarSchema = new Schema({
     modelCode: {
         type: String,
         required: [true, "Model Code is required"],
+        trim: true
+    },
+    chassisNo: {
+        type: String,
+        required: [true, "Chassis No is required"],
         trim: true
     },
     year: {
@@ -103,7 +108,7 @@ const CarSchema = new Schema({
         type: Boolean,
         default: true
     },
-    referenceNo : {
+    referenceNo: {
         type: String,
         required: [true, "Reference No. is required"],
         unique: true,

@@ -35,6 +35,7 @@ const getController = async (req, res) => {
                 id: product._id,
                 name: product.name,
                 description: product.description,
+                chassisNo: product.chassisNo,
                 price: product.price,
                 inventoryLocation: product.inventoryLocation,
                 modelCode: product.modelCode,

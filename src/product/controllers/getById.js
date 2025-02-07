@@ -23,6 +23,7 @@ export default async function getByIdController(req, res) {
             _id                 : product._id,
             name                : product.name,
             description         : product.description,
+            chassisNo           : product.chassisNo,
             color               : product.color,
             price               : product.price,
             inventoryLocation   : product.inventoryLocation,
@@ -41,7 +42,7 @@ export default async function getByIdController(req, res) {
             ratings             : product.ratings,
             numOfReviews        : product.numOfReviews,
             stock               : product.stock,
-            referenceNo        : product.referenceNo,
+            referenceNo         : product.referenceNo,
             image               : product.images,
             publishAt           : product.createdAt,
         }
