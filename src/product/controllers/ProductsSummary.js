@@ -9,7 +9,7 @@ export default async function ProductsSummaryController(req, res) {
 
         const uniqueNamesMap = new Map();
         const modelCodes = [];
-        const years = [];
+        const uniqueYears = new Set();
 
         products.forEach(product => {
             let firstWord = product.name.split(" ")[0];
@@ -18,21 +18,27 @@ export default async function ProductsSummaryController(req, res) {
                 firstWord = firstWord.split("-")[0];
             }
 
+            
             if (!uniqueNamesMap.has(firstWord)) {
                 uniqueNamesMap.set(firstWord, 1);
-                modelCodes.push(product.modelCode);
-                years.push(product.year);
             } else {
                 uniqueNamesMap.set(firstWord, uniqueNamesMap.get(firstWord) + 1);
             }
+
+         
+            modelCodes.push(product.modelCode);
+
+         
+            uniqueYears.add(product.year.trim());
         });
 
         const uniqueNamesWithCount = Array.from(uniqueNamesMap).map(([name, count]) => `${name} (${count})`);
-
+        const uniqueYearsArray = Array.from(uniqueYears); 
+      
         return response.success({
-            name: uniqueNamesWithCount,
-            modelCode: modelCodes,
-            year: years
+            name: uniqueNamesWithCount, 
+            modelCode: modelCodes,  
+            year: uniqueYearsArray.sort(),  
         }, "Summary Get Successfully");
 
     } catch (error) {
@@ -44,7 +50,6 @@ export default async function ProductsSummaryController(req, res) {
         } else {
             messages.push(error.message);
         }
-
         return response.error(messages, "Internal Server Error", 500);
     }
 }
