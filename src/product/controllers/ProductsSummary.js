@@ -3,10 +3,8 @@ import getData from "../services/get.js";
 
 export default async function ProductsSummaryController(req, res) {
     const response = new Response(res);
-
     let { name, modelCode, year } = req.query;
 
-    
     if (name) name = name.toUpperCase();
     if (modelCode) modelCode = modelCode.toUpperCase();
     if (year) year = year.toUpperCase();
@@ -25,9 +23,9 @@ export default async function ProductsSummaryController(req, res) {
             }
 
             if (!uniqueNamesMap.has(firstWord)) {
-                uniqueNamesMap.set(firstWord, new Set());
+                uniqueNamesMap.set(firstWord, 0);
             }
-            uniqueNamesMap.get(firstWord).add(product.modelCode.toUpperCase());
+            uniqueNamesMap.set(firstWord, uniqueNamesMap.get(firstWord) + 1);
 
             if (!modelCodesMap.has(product.modelCode.toUpperCase())) {
                 modelCodesMap.set(product.modelCode.toUpperCase(), new Set());
@@ -41,44 +39,43 @@ export default async function ProductsSummaryController(req, res) {
         });
 
         let filteredData = {
-            name: [],
-            modelCode: [],
-            year: []
+            name: Array.from(uniqueNamesMap, ([key, value]) => `${key} (${value})`), // Use actual product count
+            modelCode: Array.from(modelCodesMap.keys()),
+            year: Array.from(uniqueYearsMap.keys()).sort()
         };
 
         if (name) {
-            const nameData = uniqueNamesMap.has(name) ? Array.from(uniqueNamesMap.get(name)) : [];
-            filteredData.name = [name];
-            filteredData.modelCode = nameData;
-            filteredData.year = Array.from(new Set(products.filter(p => p.name.toUpperCase().startsWith(name)).map(p => p.year.trim().toUpperCase())));
-            if (!nameData.length) return response.error([], "No car found for the given name", 404);
-        }
-        if (year) {
-            const yearData = uniqueYearsMap.has(year) ? Array.from(uniqueYearsMap.get(year)) : [];
-            if (name) {
-                filteredData.year = [year];
-                filteredData.modelCode = filteredData.modelCode.filter(mc => yearData.includes(mc));
-            } else {
-                filteredData.year = [year];
-                filteredData.modelCode = yearData;
-                filteredData.name = Array.from(new Set(products.filter(p => p.year.trim().toUpperCase() === year).map(p => p.name.split(" ")[0].toUpperCase())));
-            }
-            if (!yearData.length) return response.error([], "No car found for the given year", 404);
-        }
-        if (modelCode) {
-            filteredData.modelCode = [modelCode];
-            filteredData.year = modelCodesMap.has(modelCode) ? Array.from(modelCodesMap.get(modelCode)) : [];
-            filteredData.name = Array.from(new Set(products.filter(p => p.modelCode.toUpperCase() === modelCode).map(p => p.name.split(" ")[0].toUpperCase())));
-            if (!filteredData.year.length) return response.error([], "No car found for the given model code", 404);
+            const filteredProductsByName = products.filter(p => {
+                let productFirstWord = p.name.split(" ")[0].toUpperCase();
+                if (productFirstWord.includes("-")) {
+                    productFirstWord = productFirstWord.split("-")[0];
+                }
+                return productFirstWord === name;
+            });
+
+            filteredData.modelCode = Array.from(new Set(filteredProductsByName.map(p => p.modelCode.toUpperCase())));
+            filteredData.year = Array.from(new Set(filteredProductsByName.map(p => p.year.trim().toUpperCase()))).sort();
         }
 
-        if (!name && !modelCode && !year) {
-            filteredData = {
-                name: Array.from(uniqueNamesMap.keys()),
-                modelCode: Array.from(modelCodesMap.keys()),
-                year: Array.from(uniqueYearsMap.keys()).sort()
-            };
+        if (modelCode) {
+            const validYears = modelCodesMap.has(modelCode) ? Array.from(modelCodesMap.get(modelCode)) : [];
+            if (name) {
+                filteredData.year = filteredData.year.filter(y => validYears.includes(y));
+            } else {
+                filteredData.modelCode = [modelCode];
+                filteredData.year = validYears;
+            }
         }
+
+        if (year) {
+            const validModelCodes = uniqueYearsMap.has(year) ? Array.from(uniqueYearsMap.get(year)) : [];
+            if (!name && !modelCode) {
+                filteredData.modelCode = validModelCodes;
+                filteredData.year = [year];
+            }
+        }
+
+        filteredData.name = Array.from(uniqueNamesMap, ([key, value]) => `${key} (${value})`);
 
         return response.success(filteredData, "Summary Get Successfully");
     } catch (error) {
@@ -93,5 +90,3 @@ export default async function ProductsSummaryController(req, res) {
         return response.error(messages, "Internal Server Error", 500);
     }
 }
-
-
