@@ -39,7 +39,7 @@ export default async function ProductsSummaryController(req, res) {
         });
 
         let filteredData = {
-            name: Array.from(uniqueNamesMap, ([key, value]) => `${key} (${value})`), // Use actual product count
+            name: Array.from(uniqueNamesMap, ([key, value]) => `${key} (${value})`),
             modelCode: Array.from(modelCodesMap.keys()),
             year: Array.from(uniqueYearsMap.keys()).sort()
         };

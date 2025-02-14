@@ -1,4 +1,4 @@
-
+import 'module-alias/register.js';
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -59,6 +59,10 @@ mongoose
 // ========================================================
 const db = mongoose.connection;
 
+
+// ========================================================
+// =================== Mongoose Events ====================
+// ========================================================
 db.on("connected", () => {
   console.log("---- Mongoose connected to DB ----");
 });
