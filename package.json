@@ -30,8 +30,7 @@
     "#controllers/*": "./src/controllers/*",
     "#models/*": "./src/models/*",
     "#utils/*": "./src/utils/*",
-    "#db/*": "./src/db/*",
-    "#src2/*": "./src2/*"
+    "#db/*": "./src/db/*"
   },
   "type": "module"
 }
